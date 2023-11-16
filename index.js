@@ -1,7 +1,7 @@
 const httpServer = require("http").createServer();
 const redis = require("redis")
 const { createAdapter } = require("@socket.io/redis-adapter");
-import { createClient } from "redis";
+const { createClient } = require("redis");
 
 
 const io = require("socket.io")(httpServer, {
