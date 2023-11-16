@@ -11,15 +11,19 @@ const io = require("socket.io")(httpServer, {
 	}
 });
 
-const client = redis.createClient({
+const pubClient = createClient({ url: "redis://localhost:6379" });
+const subClient = pubClient.duplicate();
+
+io.adapter(createAdapter(pubClient, subClient));
+
+(async () => {
+	const client = redis.createClient({
 		socket: {
 			host: "redis"
 		}
-});
-const subClient = client.duplicate();
-io.adapter(createAdapter(client, subClient));
-
-(async () => {
+	});
+    const subClient = client.duplicate();
+    io.adapter(createAdapter(client, subClient));
 	const subscriber = client.duplicate();
 	await subscriber.connect();
 	subscriber.on('error', err => console.log('Redis Client Error', err));
