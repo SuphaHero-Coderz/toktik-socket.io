@@ -32,10 +32,8 @@ const io = require("socket.io")(httpServer, {
 	await subscriber.subscribe('new_notification', (message) => {
 		console.log(message);
 		const parsed = JSON.parse(message);
-		var user_id = JSON.parse(message)[0].user_id;
-		console.log("USER ID NOTIFICATION");
-		console.log(user_id);
-		io.to(user_id).emit("new_notification", JSON.stringify(parsed.slice(1)));
+		var video_owner_id = parsed[0].video_owner_id;
+		io.to(video_owner_id).emit("new_notification", JSON.stringify(parsed.slice(1)));
 	})
 })();
 
@@ -54,9 +52,11 @@ io.use((socket, next) => {
 
 
 io.on("connection", (socket) => {
-	console.log("USER ID CONNECTION");
-	console.log(socket.user_id);
 	socket.join(socket.user_id);
+
+	socket.on("join_vip", () => {
+		
+	});
 });
 
 
