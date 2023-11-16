@@ -74,6 +74,10 @@ io.use((socket, next) => {
 io.on("connection", (socket) => {
 	socket.join(socket.user_id);
 	console.log(`Joining user room: ${socket.user_id}`)
+    socket.on('error', function (err) {
+        if (err.description) throw err.description;
+        else throw err; // Or whatever you want to do
+    });
 });
 
 
