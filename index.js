@@ -50,7 +50,6 @@ const io = require("socket.io")(httpServer, {
 	})
 })();
 
-const axios = require("axios");
 
 
 // Middleware that checks username and allows the connection
@@ -76,6 +75,7 @@ io.on("connection", (socket) => {
 
 
 const PORT = process.env.PORT || 3001;
+
 
 httpServer.listen(PORT, () =>
 	console.log(`server listening at http://localhost:${PORT}`)
