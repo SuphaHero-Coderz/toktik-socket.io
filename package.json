@@ -6,6 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@socket.io/redis-adapter": "^8.2.1",
     "axios": "^1.6.1",
     "redis": "^4.6.10",
     "socket.io": "^4.7.2"
