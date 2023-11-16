@@ -12,10 +12,6 @@ const io = require("socket.io")(httpServer, {
 	}
 });
 
-const pubClient = createClient({ url: "redis://localhost:6379" });
-const subClient = pubClient.duplicate();
-
-io.adapter(createAdapter(pubClient, subClient));
 
 (async () => {
 	const client = redis.createClient({
