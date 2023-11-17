@@ -7,8 +7,7 @@ const { createClient } = require("redis");
 const io = require("socket.io")(httpServer, {
 	cookie: true,
 	cors: {
-		origin: "*",
-		credentials: true
+        origin: "http://localhost"
 	}
 });
 
@@ -19,8 +18,6 @@ const io = require("socket.io")(httpServer, {
 			host: "redis"
 		}
 	});
-    const subClient = client.duplicate();
-    io.adapter(createAdapter(client, subClient));
 	const subscriber = client.duplicate();
 	await subscriber.connect();
 	subscriber.on('error', err => console.log('Redis Client Error', err));
